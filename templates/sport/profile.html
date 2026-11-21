@@ -1,0 +1,32 @@
+{% extends 'sport/base.html' %}
+
+{% block title %}Личный кабинет - Sport{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <h1>Личный кабинет</h1>
+    <p>Имя пользователя: <strong>{{ user.username }}</strong></p>
+    {% if user.email %}<p>Email: <strong>{{ user.email }}</strong></p>{% endif %}
+</section>
+
+<section class="profile-tickets">
+    <h2>Мои билеты</h2>
+    {% if orders %}
+        <div class="games-grid">
+            {% for ticket in orders %}
+                <article class="game-card">
+                    <h3>{{ ticket.game.name }}</h3>
+                    <p><strong>Команда:</strong> {{ ticket.game.team.name }}</p>
+                    <p><strong>Вид спорта:</strong> {{ ticket.game.category.name }}</p>
+                    <p><strong>Дата:</strong> {{ ticket.game.date|date:"d.m.Y H:i" }}</p>
+                    <p><strong>Имя в заказе:</strong> {{ ticket.name }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            У вас пока нет заказов. <a href="{% url 'tickets' %}">Выбрать матч</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

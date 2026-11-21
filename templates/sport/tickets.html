@@ -1,0 +1,25 @@
+{% extends 'sport/base.html' %}
+
+{% block title %}Купить билеты - Sport{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Доступные игры</h1>
+
+    {% if games %}
+        <div class="games-grid">
+            {% for game in games %}
+                <article class="game-card">
+                    <span class="game-category">{{ game.category.name }}</span>
+                    <h2>{{ game.name }}</h2>
+                    <p><strong>Команда:</strong> {{ game.team.name }}</p>
+                    <p><strong>Дата:</strong> {{ game.date|date:"d.m.Y H:i" }}</p>
+                    <a class="button" href="{% url 'buy_ticket_for_game' game.id %}">Купить билет</a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">Сейчас нет доступных игр.</div>
+    {% endif %}
+</section>
+{% endblock %}

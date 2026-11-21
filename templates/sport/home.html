@@ -1,0 +1,38 @@
+{% extends 'sport/base.html' %}
+
+{% block title %}Главная - Sport{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Билеты на спортивные матчи</h1>
+    <p>Выбирайте матч и заказывайте билет онлайн.</p>
+    {% if user.is_authenticated %}
+        <p>Здравствуйте, <strong>{{ user.username }}</strong>!</p>
+    {% else %}
+        <p>Войдите или зарегистрируйтесь, чтобы сохранить свои заказы.</p>
+    {% endif %}
+    <a class="button" href="{% url 'tickets' %}">Посмотреть матчи</a>
+    {% if user.is_authenticated %}
+        <a class="button secondary" href="{% url 'profile' %}">Мой профиль</a>
+    {% endif %}
+</section>
+
+<section class="home-games">
+    <h2>Ближайшие матчи</h2>
+    {% if games %}
+        <div class="games-grid">
+            {% for game in games %}
+                <article class="game-card">
+                    <span class="game-category">{{ game.category.name }}</span>
+                    <h3>{{ game.name }}</h3>
+                    <p>{{ game.team.name }}</p>
+                    <p>{{ game.date|date:"d.m.Y H:i" }}</p>
+                    <a href="{% url 'buy_ticket_for_game' game.id %}">Заказать билет</a>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">Матчи пока не добавлены.</div>
+    {% endif %}
+</section>
+{% endblock %}

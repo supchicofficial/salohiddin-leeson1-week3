@@ -1,0 +1,15 @@
+{% extends 'sport/base.html' %}
+
+{% block title %}Регистрация - Sport{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <h1>Регистрация</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Создать аккаунт</button>
+    </form>
+    <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+</section>
+{% endblock %}

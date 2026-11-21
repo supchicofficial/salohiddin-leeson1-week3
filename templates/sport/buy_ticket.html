@@ -1,0 +1,18 @@
+{% extends 'sport/base.html' %}
+
+{% block title %}Заказ билета - Sport{% endblock %}
+
+{% block content %}
+<section class="auth-card">
+    <h1>Заказать билет</h1>
+    {% if selected_game %}
+        <p><strong>{{ selected_game.name }}</strong></p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button" type="submit">Заказать</button>
+    </form>
+</section>
+{% endblock %}
