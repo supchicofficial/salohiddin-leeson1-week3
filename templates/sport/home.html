@@ -3,7 +3,7 @@
 {% block title %}Главная - Sport{% endblock %}
 
 {% block content %}
-<section class="hero">
+<div class="hero">
     <h1>Билеты на спортивные матчи</h1>
     <p>Выбирайте матч и заказывайте билет онлайн.</p>
     {% if user.is_authenticated %}
@@ -15,24 +15,24 @@
     {% if user.is_authenticated %}
         <a class="button secondary" href="{% url 'profile' %}">Мой профиль</a>
     {% endif %}
-</section>
+</div>
 
-<section class="home-games">
+<div class="home-games">
     <h2>Ближайшие матчи</h2>
     {% if games %}
         <div class="games-grid">
             {% for game in games %}
-                <article class="game-card">
+                <div class="game-card">
                     <span class="game-category">{{ game.category.name }}</span>
                     <h3>{{ game.name }}</h3>
                     <p>{{ game.team.name }}</p>
                     <p>{{ game.date|date:"d.m.Y H:i" }}</p>
                     <a href="{% url 'buy_ticket_for_game' game.id %}">Заказать билет</a>
-                </article>
+                </div>
             {% endfor %}
         </div>
     {% else %}
         <div class="empty-state">Матчи пока не добавлены.</div>
     {% endif %}
-</section>
+</div>
 {% endblock %}
